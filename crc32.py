@@ -31,7 +31,7 @@ if __name__ == "__main__":
 			sys.exit(0)
 	
 	if not args:
-		print(usage)
+		print(usage, file=sys.stderr)
 		exit(2)
 	
 	for f in args:
