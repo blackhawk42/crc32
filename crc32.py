@@ -5,6 +5,10 @@ import zlib
 import getopt
 
 def crc32(filename, chunk_size=1024):
+	"""Generates CRC32 of a file and outputs it's hexadecimal value
+	in a string. Because it does it by chunks, it can read large
+	files without running out of memory"""
+
 	crc = 0
 	with open(filename, "rb") as f:
 		while True:
