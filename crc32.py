@@ -22,17 +22,33 @@ def crc32(filename, chunk_size=1024):
 	return '{:08X}'.format(crc)
 
 if __name__ == "__main__":
-	options = 'h'
-	long_options = ["help"]
-	opts, args = getopt.gnu_getopt(sys.argv[1:], options, long_options)
+	# Command line options
+	options = 'ho:'
+	long_options = ["help", "output="]
+
+	try:
+		opts, args = getopt.gnu_getopt(sys.argv[1:], options, long_options)
+	except GetoptError as e:
+		print(e.msg, file=sys.stderr)
+		sys.exit(2)
+
+	outfiles = [] # For file outputing
+
 	for opt, arg in opts:
 		if opt in ["-h", "--help"]:
 			print(usage)
 			sys.exit(0)
+		if opt in ["-o", "--output"]:
+			outfiles.append(arg)
 	
 	if not args:
 		print(usage, file=sys.stderr)
 		exit(2)
 	
 	for f in args:
-		print('{}: {}'.format(f, crc32(f) ))
+		crc = '{}: {}'.format(f, crc32(f) )
+		print(crc)
+		for file in outfiles:
+			with open(file, "a") as f:
+				f.write(crc + "\n")
+
