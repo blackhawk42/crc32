@@ -46,9 +46,11 @@ if __name__ == "__main__":
 		exit(2)
 	
 	for f in args:
-		crc = '{}: {}'.format(f, crc32(f) )
-		print(crc)
-		for file in outfiles:
-			with open(file, "a") as f:
-				f.write(crc + "\n")
-
+		try:
+			crc = '{}: {}'.format(f, crc32(f) )
+			print(crc)
+			for outfile in outfiles:
+				with open(outfile, "a") as of:
+					of.write(crc + "\n")
+		except FileNotFoundError as e:
+			print("WARNING: File not found: {}".format(f), file=sys.stderr)
