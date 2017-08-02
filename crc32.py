@@ -5,7 +5,7 @@ import os.path
 import zlib
 import getopt
 
-usage = "usage: {} [-h|--help] FILE_1 [... FILE_N]".format(os.path.basename(sys.argv[0]))
+usage = "usage: {} [-h|--help] [-o |--output=OUTFILE] FILE_1 [... FILE_N]".format(os.path.basename(sys.argv[0]))
 
 def crc32(filename, chunk_size=1024):
 	"""Generates CRC32 of a file and outputs it's hexadecimal value
